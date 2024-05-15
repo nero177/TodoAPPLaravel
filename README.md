@@ -12,3 +12,6 @@ Authorize via register or login routes and pass token in Authorization header.
 Accept: application/json
 Authorization: Bearer token
 ```
+```
+
+
