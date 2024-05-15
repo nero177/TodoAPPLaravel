@@ -8,7 +8,7 @@ Run tasks seeder in docker app container with
 create .env file from .env.example
 ```cp .env.example .env```
 
-**DB configuration
+**DB configuration**
 ```
 DB_CONNECTION=mysql
 DB_HOST=db
