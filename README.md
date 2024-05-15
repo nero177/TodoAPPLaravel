@@ -5,3 +5,10 @@ Run tasks seeder in docker app container with ```php artisan db:seed --class=Tas
 
 - **[Swagger Open API](https://app.swaggerhub.com/apis/EDWARDNERO2020/TodoAPITestTask/1.0.0#/)**
 
+### Headers
+```
+Accept: application/json
+Authorization: Bearer token
+```
+
+
