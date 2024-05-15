@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserCreateRequest;
 use App\DTO\UserDTO;
+use App\DTO\TokenDTO;
 
 class AuthController extends Controller
 {
@@ -26,7 +27,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return response()->json(TokenDTO::getTokenResponse($token));
     }
 
     public function login(Request $request) : JsonResponse
@@ -37,15 +38,6 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
-    }
-
-    protected function respondWithToken(string $token) : JsonResponse
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60 * 24
-        ]);
+        return response()->json(TokenDTO::getTokenResponse($token));
     }
 }

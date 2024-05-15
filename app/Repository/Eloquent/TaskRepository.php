@@ -2,7 +2,6 @@
 
 namespace App\Repository\Eloquent;
 
-use App\Enums\TaskStatus;
 use App\Models\Task;
 use App\Repository\TaskRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;

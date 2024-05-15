@@ -7,6 +7,8 @@ use App\Enums\TaskStatus;
 use App\Models\Task;
 use App\Repository\TaskRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use App\Http\Resources\TaskResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TaskService
 {
@@ -14,7 +16,7 @@ class TaskService
     {
     }
 
-    public function create(TaskDTO $taskDTO) : Task
+    public function create(TaskDTO $taskDTO) : TaskResource
     {
         $user = auth()->user();
 
@@ -26,24 +28,24 @@ class TaskService
             'parent_id' => $taskDTO->parent_id
         ]);
 
-        return $task;
+        return new TaskResource($task);
     }
 
-    public function all(bool $shouldFilter) : Collection
+    public function all(bool $shouldFilter) : AnonymousResourceCollection
     {
         if ($shouldFilter) {
             $tasks = $this->taskRepository->filter();
-            return $tasks;
+            return TaskResource::collection($tasks);
         }
 
         $tasks = $this->taskRepository->allNested();
-        return $tasks;
+        return TaskResource::collection($tasks);
     }
 
-    public function search(string $str) : Collection
+    public function search(string $str) : AnonymousResourceCollection
     {
         $results = $this->taskRepository->search($str);
-        return $results;
+        return TaskResource::collection($results);
     }
 
     public function update(int $id, TaskDTO $taskDTO) : bool
